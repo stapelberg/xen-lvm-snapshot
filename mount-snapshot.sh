@@ -48,7 +48,7 @@ losetup -o "${offset}" -f "${SNAP_PATH}"
 LOOP=$(losetup -a | grep "(${SNAP_PATH})" -m1 | cut -d : -f 1)
 
 # Run fsck.ext3 to restore the journal
-fsck.ext3 "${LOOP}"
+fsck.ext3 -y "${LOOP}"
 
 # Mount the file system
 mkdir /mnt/snap_${DOMU}
