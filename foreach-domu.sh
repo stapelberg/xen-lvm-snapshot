@@ -17,5 +17,11 @@ fi
 LVS=$(lvs --separator / --noheadings -o vg_name,lv_name 2>&- | tr -d ' ' | grep '/domu-')
 for LV in ${LVS}
 do
-	echo "Handling LV *$LV*"
+	echo "Handling LV $LV"
+	if [ "${ACTION}" = "mount" ]
+	then
+		$(dirname $0)/mount-snapshot.sh "${LV}"
+	else
+		$(dirname $0)/unmount-snapshot.sh "${LV}"
+	fi
 done
