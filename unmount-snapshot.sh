@@ -1,12 +1,12 @@
 #!/bin/sh
 #
-# © 2009 Michael Stapelberg
+# © 2009-2011 Michael Stapelberg (see also: LICENSE)
 #
 # Cleanly unmounts and removes the mounted LVM snapshot which has before
 # been mounted by mount-snapshot.sh
 #
 
-source $(dirname $0)/common.sh
+. $(dirname $0)/common.sh
 
 NAME="$1"
 if [ -z "${NAME}" ]

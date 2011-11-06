@@ -1,12 +1,12 @@
 #!/bin/sh
 #
-# © 2009 Michael Stapelberg
+# © 2009-2011 Michael Stapelberg (see also: LICENSE)
 #
 
-source $(dirname $0)/common.sh
+. $(dirname $0)/common.sh
 
 ACTION="$1"
-if [[ "${ACTION}" != "mount" && "${ACTION}" != "unmount" ]]
+if [ "${ACTION}" != "mount" -a "${ACTION}" != "unmount" ]
 then
 	echo "Syntax: $0 <mount|unmount>"
 	echo "Calls the appropriate LVM snapshot script for mounting/unmounting"

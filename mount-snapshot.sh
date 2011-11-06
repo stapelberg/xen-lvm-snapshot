@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# © 2009 Michael Stapelberg
+# © 2009-2011 Michael Stapelberg (see also: LICENSE)
 #
 # This script mounts the first data partition inside the logical volume (that
 # is, the LV is expected to contain a partition table) given as parameter.
@@ -8,7 +8,7 @@
 # The name of the LV must begin with "domu-".
 #
 
-source $(dirname $0)/common.sh
+. $(dirname $0)/common.sh
 
 NAME="$1"
 if [ -z "${NAME}" ]
