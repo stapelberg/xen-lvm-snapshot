@@ -34,6 +34,6 @@ umount /mnt/snap_${DOMU}
 rm -rf /mnt/snap_${DOMU}
 
 # Remove the loop device
-losetup -d "${mounted}"
+/sbin/losetup -d "${mounted}"
 
-lvremove -f "${SNAP_NAME}"
+/sbin/lvremove -f "${SNAP_NAME}"

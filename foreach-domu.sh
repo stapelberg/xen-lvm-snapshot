@@ -14,7 +14,7 @@ then
 	exit 1
 fi
 
-LVS=$(lvs --separator / --noheadings -o vg_name,lv_name 2>&- | tr -d ' ' | grep '/domu-')
+LVS=$(/sbin/lvs --separator / --noheadings -o vg_name,lv_name 2>&- | tr -d ' ' | grep '/domu-')
 for LV in ${LVS}
 do
 	echo "Handling LV $LV"
