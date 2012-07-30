@@ -38,7 +38,7 @@ SNAP_PATH="/dev/mapper/$(echo "$NAME" | sed -e 's,/,-,; s,domu-,snap_,')"
 SNAP_NAME=$(echo "$NAME" | sed -e 's,domu-,snap_,')
 
 offset=$(/sbin/parted -m "$SNAP_PATH" unit B print | awk -F : \
-	'{ if ($5 == "ext3") { gsub("B", "", $2); print $2; } }')
+	'{ if ($5 == "ext3" || $5 == "ext4") { gsub("B", "", $2); print $2; } }')
 
 echo "Mounting data partition at $offset"
 # loop-mount the data partition inside LVM snapshot
