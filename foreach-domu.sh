@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# © 2009-2011 Michael Stapelberg (see also: LICENSE)
+# © 2009-2012 Michael Stapelberg (see also: LICENSE)
 #
 
 . $(dirname $0)/common.sh

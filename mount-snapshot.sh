@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# © 2009-2011 Michael Stapelberg (see also: LICENSE)
+# © 2009-2012 Michael Stapelberg (see also: LICENSE)
 #
 # This script mounts the first data partition inside the logical volume (that
 # is, the LV is expected to contain a partition table) given as parameter.
