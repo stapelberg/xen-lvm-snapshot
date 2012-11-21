@@ -36,3 +36,19 @@ rm -rf /mnt/snap_${DOMU}
 
 # Remove the loop device
 /sbin/kpartx -s -d "$SNAP_PATH"
+
+# Workaround for http://bugs.debian.org/549691
+/sbin/dmsetup remove "${SNAP_PATH}"
+/sbin/dmsetup remove "${SNAP_PATH}-cow"
+
+set +e
+false
+while [ $? -ne 0 ]; do
+       /sbin/lvremove --verbose -f "${SNAP_NAME}"
+       if [ $? -ne 0 ]; then
+               ORIG=$(echo "$SNAP_NAME" | sed -e 's,/snap_,-domu--,g')
+               echo "failed. SNAP_NAME = $SNAP_NAME, ORIG = $ORIG"
+               dmsetup resume "$ORIG"
+               false
+       fi
+done
