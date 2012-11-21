@@ -21,6 +21,7 @@ DOMU=$(echo "$NAME" | sed 's,[^/]*/domu-,,g')
 
 # The LVM path to our snapshot
 SNAP_NAME=$(echo "$NAME" | sed -e 's,domu-,snap_,')
+SNAP_PATH="/dev/mapper/$(echo "$NAME" | sed -e 's,/,-,; s,domu-,snap_,')"
 
 mounted=$(awk "{ if (\$2 == \"/mnt/snap_${DOMU}\") { print \$1 } }" /proc/mounts)
 if [ "${mounted}" = "" ]
@@ -34,6 +35,4 @@ umount /mnt/snap_${DOMU}
 rm -rf /mnt/snap_${DOMU}
 
 # Remove the loop device
-/sbin/losetup -d "${mounted}"
-
-/sbin/lvremove -f "${SNAP_NAME}"
+/sbin/kpartx -s -d "$SNAP_PATH"

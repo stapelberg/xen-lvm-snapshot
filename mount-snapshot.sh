@@ -34,22 +34,7 @@ fi
 
 # The path to our snapshot in the filesystem
 SNAP_PATH="/dev/mapper/$(echo "$NAME" | sed -e 's,/,-,; s,domu-,snap_,')"
-# The LVM path to our snapshot
-SNAP_NAME=$(echo "$NAME" | sed -e 's,domu-,snap_,')
-
-offset=$(/sbin/parted -m "$SNAP_PATH" unit B print | awk -F : \
-	'{ if ($5 == "ext3" || $5 == "ext4") { gsub("B", "", $2); print $2; } }')
-
-echo "Mounting data partition at $offset"
-# loop-mount the data partition inside LVM snapshot
-/sbin/losetup -o "${offset}" -f "${SNAP_PATH}"
-
-# Get the name of the loop device which has been chosen by -f
-LOOP=$(/sbin/losetup -a | grep "(${SNAP_PATH})" -m1 | cut -d : -f 1)
-
-# Run fsck.ext3 to restore the journal
-/sbin/fsck.ext3 -y "${LOOP}" || true
-
-# Mount the file system
+/sbin/kpartx -s -a "$SNAP_PATH"
+/sbin/fsck -y "${SNAP_PATH}1" || true
 mkdir /mnt/snap_${DOMU}
-mount "${LOOP}" /mnt/snap_${DOMU}
+mount "${SNAP_PATH}1" "/mnt/snap_${DOMU}"
