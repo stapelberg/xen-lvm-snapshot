@@ -27,10 +27,10 @@ then
 	exit 1
 fi
 
-# Create a snapshot of the domU with 1 GB of space for modifications while the
+# Create a snapshot of the domU with 5 GB of space for modifications while the
 # backup is being run. If you have backups which take very long or if you
 # constantly modify data, you need to adjust this value.
-/sbin/lvcreate -n snap_$DOMU -L 1G -s $NAME
+/sbin/lvcreate -n snap_$DOMU -L 5G -s $NAME
 
 # The path to our snapshot in the filesystem
 SNAP_PATH="/dev/mapper/$(echo "$NAME" | sed -e 's,/,-,; s,domu-,snap_,')"
